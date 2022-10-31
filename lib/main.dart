@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/question.dart';
+import 'package:quiz_app/answer.dart';
+import 'package:quiz_app/quiz.dart';
+import 'package:quiz_app/result.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,9 +30,33 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _questionIndex = 0;
 
-  final _question = [
-    'What\'s your favorite color?',
-    'What\'s your favorite animal?',
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+    });
+  }
+
+  void answerQuestion() {
+    setState(() {
+      _questionIndex += 1;
+    });
+    print(_questionIndex);
+    print('Answer Chosen !');
+  }
+
+  final List<Map<String, Object>> _question = [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': ['Black', 'Green', 'Blue', 'Yellow']
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answers': ['Rabbit', 'Tiger', 'Elephant', 'Lion']
+    },
+    {
+      'questionText': 'What\'s your favorite instructor?',
+      'answers': ['Mortadha1', 'Mortadha2', 'Mortadha3', 'Mortadha4']
+    },
   ];
 
   @override
@@ -39,7 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Quiz App'),
       ),
       body: Container(
-        child: Question(_question[0]),
+        child: _questionIndex < _question.length
+            ? Quiz(_question, _questionIndex, answerQuestion)
+            : Result(_resetQuiz),
       ),
     );
   }
