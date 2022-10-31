@@ -8,15 +8,15 @@ class Quiz extends StatelessWidget {
 
   final List<Map<String, Object>> question;
   final int questionIndex;
-  final Function() answerQuestion;
+  final Function(int s) answerQuestion;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Question(question[questionIndex]['questionText'].toString()),
-        ...(question[questionIndex]['answers'] as List<String>).map((answer) {
-          return Answer(answerQuestion, answer);
+        ...(question[questionIndex]['answers'] as List<Map<String,Object>>).map((answer) {
+          return Answer(()=>answerQuestion(int.parse(answer['score'].toString())), answer['text'].toString());
         }).toList(),
       ],
     );

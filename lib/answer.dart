@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Answer extends StatelessWidget {
-  const Answer(this.x,this.answerQuestion,{super.key});
+  const Answer(this.x, this.answerQuestion, {super.key});
 
   final String answerQuestion;
   final Function() x;
@@ -9,11 +9,17 @@ class Answer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
       width: double.infinity,
       child: ElevatedButton(
         onPressed: x,
-        child:  Text(answerQuestion,style: const TextStyle(fontSize: 30),),
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            answerQuestion,
+            style: const TextStyle(fontSize: 30),
+          ),
+        ),
       ),
     );
   }
